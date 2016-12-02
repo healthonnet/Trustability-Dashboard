@@ -1,0 +1,21 @@
+{
+  "name": "hon-gold-standard-trustability",
+  "homepage": "https://github.com/healthonnet/hon-gold-standard-trustability",
+  "authors": [
+    "Pierre Repetto-Andipatin <pierre.repetto@healthonnet.org>"
+  ],
+  "description": "Gold standard benchmark dashboard",
+  "main": "index.html",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "hon-bootstrap-template": "^1.0.1",
+    "progressbar.js": "^1.0.1"
+  }
+}
