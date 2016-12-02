@@ -32,7 +32,7 @@
       <div class="navbar-collapse collapse" id="navbar">
         <ul class="nav navbar-nav navbar-right">
           <li>
-
+            <input type="file" id="file-input">
           </li>
         </ul>
       </div>
@@ -122,48 +122,28 @@
   <script src="bower_components/progressbar.js/dist/progressbar.min.js"></script>
   <script src="js/loader.js"></script>
   <script>
-    <!-- demo -->
-    Loader.Load.load(document.getElementById('fill-hosts'), JSON.stringify([{
-      host: 'webmd.com',
-      expected: [1, 1, 1, 1, 1, 1, 1, 1, 1],
-      found: [1, 0, 1, 4, 1, 1, 0, 0, 12],
-    },
-    {
-      host: 'provisu.ch',
-      expected: [1, 1, 1, 1, 1, 0, 1, 1, 1],
-      found: [0, 1, 0, 4, 1, 1, 1, 0, 4],
-    },
-    {
-      host: 'tmp.com',
-      expected: [1, 1, 1, 1, 1, 1, 1, 1, 1],
-      found: [0, 1, 0, 0, 3, 0, 1, 0, 6],
-    },
-    {
-      host: 'crep.com',
-      expected: [1, 1, 1, 1, 1, 1, 1, 1, 1],
-      found: [1, 0, 5, 0, 0, 1, 1, 1, 1],
-    },
-    {
-      host: 'top.com',
-      expected: [1, 1, 1, 1, 1, 1, 1, 1, 1],
-      found: [0, 0, 0, 1, 0, 1, 0, 0, 1],
-    },
-    {
-      host: 'wok.com',
-      expected: [1, 1, 1, 1, 1, 1, 1, 1, 1],
-      found: [1, 0, 0, 0, 0, 1, 1, 1, 1],
-    },
-    {
-      host: 'submit.com',
-      expected: [1, 1, 1, 1, 1, 1, 1, 1, 1],
-      found: [0, 0, 1, 0, 1, 1, 1, 1, 1],
-    },
-    {
-      host: 'submit.com',
-      expected: [0, 1, 1, 1, 1, 1, 1, 1, 1],
-      found: [0, 0, 0, 0, 0, 1, 1, 1, 1],
-    },
-    ]));
+    document.getElementById('file-input')
+      .addEventListener('change', handleFileSelect, false);
+    function handleFileSelect(evt) {
+      var files = document.getElementById('file-input').files;
+      if (!files.length) {
+        alert('Please select a file!');
+        return;
+      }
+
+      var file = files[0];
+      var reader = new FileReader();
+      reader.onloadend = function (evt) {
+        if (evt.target.readyState == FileReader.DONE) {
+          Loader.Load.load(
+            document.getElementById('fill-hosts'),
+            evt.target.result
+          );
+        }
+      };
+
+      reader.readAsText(file, 'UFT-8');
+    }
   </script>
 </body>
 </html>

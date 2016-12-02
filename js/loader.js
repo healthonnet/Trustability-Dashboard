@@ -100,7 +100,7 @@
           printHost(container, benchmark[i]);
         }
       } else {
-        printHost(container, json);
+        printHost(container, benchmark);
       }
     },
   };
