@@ -1,0 +1,27 @@
+{
+  "name": "responsive-sticky-footer-plugin",
+  "version": "1.0.2",
+  "description": "Responsive sticky footer plugin for jQuery",
+  "keywords": [
+    "jQuery",
+    "plugin",
+    "responsive",
+    "sticky",
+    "footer"
+  ],
+  "authors": [
+    "William Belle <william.belle@gmail.com>"
+  ],
+  "license": "MIT",
+  "main": "dist/jquery.responsiveStickyFooter.js",
+  "ignore": [
+    ".*",
+    "*.json",
+    "gruntfile.js",
+    "src/**",
+    "grunt/**"
+  ],
+  "dependencies": {
+    "jquery": ">=1.10.2"
+  }
+}
