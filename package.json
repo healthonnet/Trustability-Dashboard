@@ -1,0 +1,29 @@
+{
+  "name": "hon-gold-standard-trustability",
+  "version": "1.0.0",
+  "description": "Gold standard benchmark dashboard",
+  "dependencies": {
+    "gulp": "^3.9.1"
+  },
+  "devDependencies": {
+    "del": "^2.2.2",
+    "gulp": "^3.9.1",
+    "run-sequence": "^1.2.2"
+  },
+  "scripts": {
+    "deploy-pages": "gulp && ghp-import dist -p",
+    "build-pages": "gulp",
+    "postintall": "bower install",
+    "test": "gulp test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/healthonnet/hon-gold-standard-trustability.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/healthonnet/hon-gold-standard-trustability/issues"
+  },
+  "homepage": "https://github.com/healthonnet/hon-gold-standard-trustability#readme"
+}
