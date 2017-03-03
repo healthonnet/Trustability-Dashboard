@@ -74,6 +74,7 @@
       '<td class="text-right' + extra[6] + '">' + object.found[6] + '</td>' +
       '<td class="text-right' + extra[7] + '">' + object.found[7] + '</td>' +
       '<td class="text-right' + extra[8] + '">' + object.found[8] + '</td>' +
+      '<td class="text-right"><button class="btn btn-danger btn-xs">x</button></td>' +
       '</tr>';
 
     animate();
