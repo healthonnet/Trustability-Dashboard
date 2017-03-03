@@ -14,5 +14,8 @@
   "expr":true,
   "esversion": 6,
   "globals": {
+    "jQuery": true,
+    "Loader": true,
+    "ProgressBar": true
   }
 }

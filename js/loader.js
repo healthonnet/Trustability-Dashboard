@@ -86,9 +86,11 @@
       if (circles.hasOwnProperty(variable)) {
         val = expected[i] === 0 ? 0 : found[i] / expected[i];
         circles[variable].animate(val);
+        i++;
+      } else {
+        // Useless case to avoid jshint crying.
+        i++;
       }
-
-      i++;
     }
   }
 
