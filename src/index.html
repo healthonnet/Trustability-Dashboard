@@ -2,9 +2,11 @@
 <html>
 <head>
   <title>Gold standard - Trustability</title>
-  <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
-  <link rel="stylesheet" href="bower_components/hon-bootstrap-template/dist/css/hon-bootstrap-template.min.css">
-  <link rel="icon" type="image/png" href="bower_components/hon-bootstrap-template/dist/images/favicon.png">
+  <!-- build:css css/bundle.css -->
+  <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../bower_components/hon-bootstrap-template/dist/css/hon-bootstrap-template.min.css">
+  <!-- endbuild -->
+  <link rel="icon" type="image/png" href="./images/favicon.png">
   <style>
   h1 {
     text-align: center;
@@ -20,7 +22,7 @@
     <div class="container">
       <div class="navbar-header">
         <a class="navbar-brand" href="index.html">
-          <img src="bower_components/hon-bootstrap-template/dist/images/hon-logo.png" height="30" width="226" title="Health On the Net" alt="Health On the Net">
+          <img src="./images/hon-logo.png" height="30" width="226" title="Health On the Net" alt="Health On the Net">
         </a>
         <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar">
           <span class="sr-only">Toggle navigation</span>
@@ -96,6 +98,7 @@
           <th class="text-right">HC7</th>
           <th class="text-right">HC8</th>
           <th class="text-right">HC9</th>
+          <th>-</th>
         </tr>
       </thead>
       <tbody id="fill-hosts">
@@ -105,7 +108,7 @@
   <footer class="footer">
     <div class="container">
       <p class="text-center">
-        Copyright © 2016 Health On the Net
+        Copyright © 2017 Health On the Net
         <span class="full-copyright">
           Foundation - v0.0.1
         </span>
@@ -115,12 +118,14 @@
   <script>
     var Loader = {};
   </script>
-  <script src="bower_components/jquery/dist/jquery.min.js"></script>
-  <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-  <script src="bower_components/responsive-sticky-footer-plugin/dist/jquery.responsiveStickyFooter.min.js"></script>
-  <script src="bower_components/hon-bootstrap-template/dist/js/hon-bootstrap-template.min.js"></script>
-  <script src="bower_components/progressbar.js/dist/progressbar.min.js"></script>
+  <!-- build:js js/bundle.js -->
+  <script src="../bower_components/jquery/dist/jquery.min.js"></script>
+  <script src="../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+  <script src="../bower_components/responsive-sticky-footer-plugin/dist/jquery.responsiveStickyFooter.min.js"></script>
+  <script src="../bower_components/hon-bootstrap-template/dist/js/hon-bootstrap-template.min.js"></script>
+  <script src="../bower_components/progressbar.js/dist/progressbar.min.js"></script>
   <script src="js/loader.js"></script>
+  <!-- endbuild -->
   <script>
     document.getElementById('file-input')
       .addEventListener('change', handleFileSelect, false);

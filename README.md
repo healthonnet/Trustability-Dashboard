@@ -18,13 +18,17 @@ Fetch `ghp-iport`:
 $ pip install ghp-import
 ```
 
-### Build
+### Test
+
+No tests have been made so far.
+
+### Serve
 
 ```code
-$ npm run build-pages
+$ npm start
 ```
 
-### Deploy
+### Deploy to github.io
 
 ```code
 $ npm run deploy-pages

@@ -2,31 +2,29 @@
 
 var gulp = require('gulp');
 var del = require('del');
-var runSequence = require('run-sequence');
+var gulpUseref = require('gulp-useref');
+var serve = require('gulp-serve');
+const DIST = './dist';
 
-gulp.task('default', () => {
-  return runSequence('clean', 'move-index', 'move-bower', 'move-js');
-});
-
-gulp.task('move-index', () => {
-  return gulp.src(['index.html'])
-    .pipe(gulp.dest('dist'));
-});
-
-gulp.task('move-bower', () => {
-  return gulp.src(['bower_components/**/*'])
-    .pipe(gulp.dest('dist/bower_components'));
-});
-
-gulp.task('move-js', () => {
-  return gulp.src(['js/**'])
-    .pipe(gulp.dest('dist/js'));
+gulp.task('clean', () => {
+  return del([DIST]);
 });
 
 gulp.task('test', () => {
   return true;
 });
 
-gulp.task('clean', () => {
-  return del(['dist']);
+gulp.task('images', ['clean'], () => {
+  return gulp.src('bower_components/hon-bootstrap-template/dist/images/*.png')
+    .pipe(gulp.dest(DIST + '/images'));
 });
+
+gulp.task('build', ['images'], () => {
+  return gulp.src('src/*.html')
+    .pipe(gulpUseref())
+    .pipe(gulp.dest(DIST));
+});
+
+gulp.task('serve', ['build'], serve(DIST));
+
+gulp.task('default', ['serve']);

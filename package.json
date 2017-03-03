@@ -8,11 +8,12 @@
   "devDependencies": {
     "del": "^2.2.2",
     "gulp": "^3.9.1",
-    "run-sequence": "^1.2.2"
+    "gulp-serve": "^1.4.0",
+    "gulp-useref": "^3.1.2"
   },
   "scripts": {
-    "deploy-pages": "gulp && ghp-import dist -p",
-    "build-pages": "gulp",
+    "deploy-pages": "gulp build && ghp-import dist -p",
+    "start": "gulp serve",
     "postintall": "bower install",
     "test": "gulp test"
   },
