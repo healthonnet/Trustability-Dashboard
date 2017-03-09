@@ -1,30 +1,39 @@
 {
-  "name": "hon-gold-standard-trustability",
-  "version": "1.0.0",
+  "name": "trustability-dashboard",
+  "version": "0.0.1",
   "description": "Gold standard benchmark dashboard",
+  "author": "Health On the Net",
+  "license": "MIT",
   "dependencies": {
-    "gulp": "^3.9.1"
+    "body-parser": "^1.17.1",
+    "connect": "^3.6.0",
+    "connect-sqlite3": "^0.9.9",
+    "cookie-parser": "^1.4.3",
+    "cookie-session": "^2.0.0-beta.1",
+    "express": "^4.15.2",
+    "express-fileupload": "^0.1.1",
+    "express-session": "^1.15.1",
+    "honcode-certification-list": "^0.0.5",
+    "honcode-certification-utils": "^0.0.2",
+    "method-override": "^2.3.7"
   },
-  "devDependencies": {
-    "del": "^2.2.2",
-    "gulp": "^3.9.1",
-    "gulp-serve": "^1.4.0",
-    "gulp-useref": "^3.1.2"
-  },
+  "main": "gulpfile.js",
+  "devDependencies": {},
   "scripts": {
-    "deploy-pages": "gulp build && ghp-import dist -p",
-    "start": "gulp serve",
-    "postintall": "bower install",
-    "test": "gulp test"
+    "test": "gulp test",
+    "start": "node server/www"
   },
+  "keywords": [
+    "gold",
+    "standard",
+    "benchmark"
+  ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/healthonnet/hon-gold-standard-trustability.git"
+    "url": "git+https://github.com/healthonnet/Trustability-Dashboard.git"
   },
-  "author": "",
-  "license": "MIT",
   "bugs": {
-    "url": "https://github.com/healthonnet/hon-gold-standard-trustability/issues"
+    "url": "https://github.com/healthonnet/Trustability-Dashboard/issues"
   },
-  "homepage": "https://github.com/healthonnet/hon-gold-standard-trustability#readme"
+  "homepage": "https://github.com/healthonnet/Trustability-Dashboard#readme"
 }
