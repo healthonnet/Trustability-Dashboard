@@ -12,6 +12,7 @@ This project is shipped with `yarn`. You can use it instead of `npm` for packet 
 
 ```
 $ yarn
+$ bower install
 ```
 
 ### With npm
