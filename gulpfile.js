@@ -3,7 +3,7 @@
 const gulp = require('gulp');
 const del = require('del');
 const gulpUseref = require('gulp-useref');
-const gls = require('gulp-live-server');
+const server = require('gulp-express');
 const DIST = './dist';
 
 gulp.task('clean', () => {
@@ -31,8 +31,12 @@ gulp.task('build-client', ['images'], () => {
 });
 
 gulp.task('serve', ['build'], () => {
-  const server = gls.new(DIST + '/www');
-  server.start();
+  server.run([DIST + '/www']);
+  gulp.watch(['client/**/*.html', 'client/**/*.js'], function(event) {
+    gulp.run('build-client');
+    server.notify(event);
+  });
+  gulp.watch(['server/routes/**/*.js', 'server/www'], [server.run]);
 });
 
 gulp.task('default', ['serve']);

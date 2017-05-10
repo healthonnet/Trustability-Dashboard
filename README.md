@@ -43,6 +43,20 @@ You can set a different port with the environment variable `PORT`.
 $ PORT=5000 npm start
 ```
 
+Input information
+-----------------
+
+### Add a URL
+
+Fetch from `api-kconnect`
+
+### Add a generated file
+
+You can input two types of files.
+
+* `HONconduct*.json`
+* `HONConducts*.json`
+
 API Documentation
 -----------------
 

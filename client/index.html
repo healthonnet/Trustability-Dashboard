@@ -31,18 +31,23 @@
           <span class="icon-bar"></span>
         </button>
       </div>
-      <div class="navbar-collapse collapse" id="navbar">
-        <ul class="nav navbar-nav navbar-right">
-          <li>
-            <input type="file" id="file-input">
-          </li>
-        </ul>
-      </div>
     </div>
   </nav>
   <div class="container">
     <h1>Gold standard <small class="text-muted">Trustability</small></h1>
-    <h2>Results</h2>
+    <h2 id="input">Input</h2>
+      <h3>By URL</h3>
+      <input type="text" id="url-input" placeholder="Lookup by URL..." class="form-control">
+      <input type="submit" class="btn btn-success">
+      <h3>By Domain</h3>
+      <input type="text" id="domain-input" placeholder="Lookup by domain..." class="form-control">
+      <input type="submit" class="btn btn-success">
+      <!-- Automated results
+      <label class="btn btn-default btn-file">
+        Add output file<input type="file" id="file-input" style="display:none;">
+      </label>
+      -->
+    <h2 id="results">Results</h2>
     <div class="row">
       <div class="col-md-2 col-md-offset-1 col-sm-4">
         <div id="authority"></div>
@@ -85,25 +90,9 @@
     </div>
 
     <h2>Details</h2>
-    <table class="table table-striped table-condensed">
-      <thead>
-        <tr>
-          <th>Host</th>
-          <th class="text-right">HC1</th>
-          <th class="text-right">HC2</th>
-          <th class="text-right">HC3</th>
-          <th class="text-right">HC4</th>
-          <th class="text-right">HC5</th>
-          <th class="text-right">HC6</th>
-          <th class="text-right">HC7</th>
-          <th class="text-right">HC8</th>
-          <th class="text-right">HC9</th>
-          <th class="text-right">-</th>
-        </tr>
-      </thead>
-      <tbody id="fill-hosts">
-      </tbody>
-    </table>
+    <div id="details"></div>
+
+    <button class="btn btn-danger" id="remove-all">Remove all hosts</button>
   </div>
   <footer class="footer">
     <div class="container">
@@ -127,28 +116,15 @@
   <script src="js/loader.js"></script>
   <!-- endbuild -->
   <script>
-    document.getElementById('file-input')
-      .addEventListener('change', handleFileSelect, false);
-    function handleFileSelect(evt) {
-      var files = document.getElementById('file-input').files;
-      if (!files.length) {
-        alert('Please select a file!');
-        return;
-      }
-
-      var file = files[0];
-      var reader = new FileReader();
-      reader.onloadend = function (evt) {
-        if (evt.target.readyState == FileReader.DONE) {
-          Loader.Load.load(
-            document.getElementById('fill-hosts'),
-            evt.target.result
-          );
-        }
-      };
-
-      reader.readAsText(file, 'UFT-8');
-    }
+    // document.getElementById('file-input')
+    //   .addEventListener('change', Loader.Load.handleFileSelect, false);
+    Loader.Load.printHosts('details');
+    document.getElementById('url-input')
+      .addEventListener('change', Loader.Load.handleURLSelect, false);
+    document.getElementById('domain-input')
+      .addEventListener('change', Loader.Load.handleDomainSelect, false);
+    document.getElementById('remove-all')
+      .addEventListener('click', Loader.Load.removeAll, false);
   </script>
 </body>
 </html>

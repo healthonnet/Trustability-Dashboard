@@ -40,7 +40,7 @@ router.get('/:conduct', (req, res) => {
   const conduct = 'HONConduct' + req.params.conduct;
   fs.readFile(HON_CONDUCTS + '/conducts.json', (err, data) => {
     if (err) {
-      return res.json({
+      return res.status(400).json({
         type: 'error',
         message: 'No HONConduct file has been uploaded. Please provide one.',
         error: err,
@@ -68,7 +68,7 @@ router.get('/:conduct', (req, res) => {
         });
       });
     }).on('error', err => {
-      return res.json({
+      return res.status(400).json({
         type: 'error',
         message: 'could not read data from API Kconnect.',
         error: err,

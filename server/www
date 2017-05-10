@@ -9,12 +9,18 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 const conducts = require('./routes/conducts.js');
+const domain = require('./routes/domain.js');
+const url = require('./routes/url.js');
 const index = require('./routes/index.js');
+const front = require('./routes/front.js');
 
 app.use(fileUpload());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use('/', front);
 app.use('/api', index);
 app.use('/api/conducts', conducts);
+app.use('/api/url', url);
+app.use('/api/domain', domain);
 
 app.listen(PORT, () => {
   console.log('app listening on port ' + PORT + '!');
