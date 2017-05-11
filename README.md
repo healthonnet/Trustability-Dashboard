@@ -50,12 +50,13 @@ Input information
 
 Fetch from `api-kconnect`
 
-### Add a generated file
+### Add a Domain
 
-You can input two types of files.
+Fetch from `CouchDB` available in `api-kconnect`.
 
-* `HONconduct*.json`
-* `HONConducts*.json`
+### Run the whole database
+
+Awaiting `map/reduce` redesign.
 
 API Documentation
 -----------------
