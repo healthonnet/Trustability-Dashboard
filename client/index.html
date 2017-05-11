@@ -14,6 +14,12 @@
   h1 small {
     display: block;
   }
+  table {
+    table-layout: fixed;
+  }
+  th.first {
+    width: 60%;
+  }
   </style>
 </head>
 
@@ -36,12 +42,22 @@
   <div class="container">
     <h1>Gold standard <small class="text-muted">Trustability</small></h1>
     <h2 id="input">Input</h2>
-      <h3>By URL</h3>
-      <input type="text" id="url-input" placeholder="Lookup by URL..." class="form-control">
-      <input type="submit" class="btn btn-success">
-      <h3>By Domain</h3>
-      <input type="text" id="domain-input" placeholder="Lookup by domain..." class="form-control">
-      <input type="submit" class="btn btn-success">
+      <div class="row">
+        <div class="col-xs-12 col-md-4">
+          <h3>By URL</h3>
+          <input type="text" id="url-input" placeholder="Lookup by URL..." class="form-control">
+          <input type="submit" class="btn btn-success">
+        </div>
+        <div class="col-xs-12 col-md-4">
+          <h3>By Domain</h3>
+          <input type="text" id="domain-input" placeholder="Lookup by domain..." class="form-control">
+          <input type="submit" class="btn btn-success">
+        </div>
+        <div class="col-xs-12 col-md-4">
+          <h3>Test all Database</h3>
+          <button class="btn btn-success" id="db-input">Submit</button>
+        </div>
+      </div>
       <!-- Automated results
       <label class="btn btn-default btn-file">
         Add output file<input type="file" id="file-input" style="display:none;">
@@ -90,9 +106,8 @@
     </div>
 
     <h2>Details</h2>
+    <button class="btn btn-danger" id="remove-all">Flush all results</button>
     <div id="details"></div>
-
-    <button class="btn btn-danger" id="remove-all">Remove all hosts</button>
   </div>
   <footer class="footer">
     <div class="container">

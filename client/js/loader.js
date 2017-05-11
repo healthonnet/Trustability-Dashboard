@@ -123,8 +123,10 @@
     var extra = [];
     var found = [];
     var total = [];
+    var hide;
     for (var i = 0; i < urls.length; i++) {
       found = [0,0,0,0,0,0,0,0,0];
+      hide = true;
       for (var j = 0; j < 9; j++) {
         extra[j] = '';
         if (expected && urls[i].results[j] === 0) {
@@ -133,9 +135,15 @@
         if (urls[i].results[j] > 0) {
           extra[j] = ' success';
           found[j] = 1;
+          hide = false;
          }
       }
-      result += '<tr>' +
+      if (hide) {
+        result += '<tr class="hide">';
+      } else {
+        result += '<tr">';
+      }
+      result +=
         '<td><a href="' + urls[i].url + '">' + urls[i].url + '</a></td>' +
         '<td class="text-right' + extra[0] + '">' + found[0] + '</td>' +
         '<td class="text-right' + extra[1] + '">' + found[1] + '</td>' +
@@ -170,8 +178,13 @@
   }
 
   function printHost(domain, object) {
-    return '<table class="table table-striped table-condensed">' +
-      '<thead><tr><th>' + domain + '</th>' +
+    return '<table class="table table-striped table-condensed" id="' +
+      domain + '">' +
+      '<thead><tr><th class="first">' +
+      domain +
+      ' <a href="#">[show best]</a>' +
+      ' <a href="#">[show all]</a>' +
+      '</th>' +
       '<th class="text-right">HC1</th>' +
       '<th class="text-right">HC2</th>' +
       '<th class="text-right">HC3</th>' +
@@ -181,7 +194,7 @@
       '<th class="text-right">HC7</th>' +
       '<th class="text-right">HC8</th>' +
       '<th class="text-right">HC9</th>' +
-      '</th></thead><tbody>' +
+      '</th></thead><tbody class="table-striped .table-hover">' +
       getURLrows(object.urls, object.honconduct, object.principles) +
       '</tbody></table>';
   }
@@ -303,7 +316,18 @@
     },
 
     handleDomainSelect: function(evt) {
-      window.alert('Not yet implemented.');
+      var domain = document.getElementById('domain-input').value;
+      $.ajax({
+        url: '/api/domain/' + encodeURIComponent(domain),
+        success: function(result) {
+          Loader.Load.loadJson(
+            document.getElementById('details'),
+            result
+          );
+        },
+        error: function(error) {
+          window.alert('The provided URL does not work. Sad!');
+        }});
     },
   };
 })(jQuery);
