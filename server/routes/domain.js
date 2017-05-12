@@ -15,8 +15,6 @@ router.get('/', (req, res) => {
 
 router.get('/:domain', (req, res) => {
   let database = req.query.database || 'khresmoi';
-  console.log(APIKCONNECT_PATH + '?database=' + database +
-    '&domain=' + req.params.domain);
   const options = {
     hostname: APIKCONNECT_HOST,
     path: APIKCONNECT_PATH + '?database=' + database +
