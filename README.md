@@ -84,28 +84,29 @@ GET /api
 
 ### Conducts routes
 
-```
-GET /api/conducts
-{
-  "message": "nothing to show.",
-}
-```
+Not in use.
+
+### Domain routes
 
 ```
-POST /api/conducts
-file: conduct
-{
-  "message": "file has been uploaded.",
-  "size": "number of HONconducts found",
-}
+GET /api/domain/
 ```
 
+Fetch the whole database results.
+
 ```
-GET /api/conducts/:conduct
-{
-  trustability: {}
-}
+GET /api/domain/:domain
 ```
+
+Fetch result for a specific domain name.
+
+### URL routes
+
+```
+GET /api/url/:url
+```
+
+Will call trustability script on `apikconnect`.
 
 Author
 ------
