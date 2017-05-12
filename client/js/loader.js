@@ -155,7 +155,7 @@
         result += '<tr">';
       }
       result +=
-        '<td><a href="' + urls[i].url + '">' + urls[i].url + '</a></td>' +
+        '<td><a href="' + urls[i].url + '" target="_blank">' + urls[i].url + '</a></td>' +
         '<td class="text-right' + extra[0] + '">' + found[0] + '</td>' +
         '<td class="text-right' + extra[1] + '">' + found[1] + '</td>' +
         '<td class="text-right' + extra[2] + '">' + found[2] + '</td>' +
@@ -182,9 +182,9 @@
         '</tr>';
     }
     for (i = 0; i < 9; i++) {
-      total[i] = 'N/A';
-      if (conducts[domain] && conducts[domain][i] === 1) {
-        total[i] = '&#10060;';
+      total[i] = '&#10060;';
+      if (conducts[domain] && conducts[domain][i] === 0) {
+        total[i] = 'N/A';
       }
       if (((conducts[domain] && conducts[domain][i] === 1) ||
         (!conducts[domain])) && principles[i] > 0) {
@@ -211,8 +211,6 @@
       domain + '">' +
       '<thead><tr><th class="first">' +
       domain +
-      ' <a href="#">[show best]</a>' +
-      ' <a href="#">[show all]</a>' +
       '</th>' +
       '<th class="text-right">HC1</th>' +
       '<th class="text-right">HC2</th>' +
@@ -244,20 +242,20 @@
 
   function getProportion() {
     var result = [0,0,0,0,0,0,0,0,0];
-    var count = 0;
+    var count = [0,0,0,0,0,0,0,0,0];
     for (var host in structure) {
       if (structure.hasOwnProperty(host) && conducts[host]) {
         for (var j = 0; j < 9; j++) {
           if (conducts[host] && conducts[host][j] === 1) {
             result[j] += structure[host].principles[j];
+            count[j]++;
           }
         }
-        count++;
       }
     }
-    if (count > 0) {
-      for (var i = 0; i < 9; i++) {
-        result[i] = result[i] / count;
+    for (var i = 0; i < 9; i++) {
+      if (count[i] !== 0) {
+        result[i] = result[i] / count[i];
       }
     }
     return result;
@@ -291,6 +289,7 @@
     var expected = [0,0,0,0,0,0,0,0,0];
     var count = 0;
     for (var conduct in json) {
+      expected = [0,0,0,0,0,0,0,0,0];
       if (json.hasOwnProperty(conduct)) {
         if (json[conduct].principles.HC1) {
           expected[0] = 1;
@@ -404,6 +403,7 @@
         }
       };
       reader.readAsText(file, 'UFT-8');
+      printHosts(document.getElementById('details'));
     },
 
     handleURLSelect: function(evt) {

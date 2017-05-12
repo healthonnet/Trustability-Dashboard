@@ -46,6 +46,17 @@ $ PORT=5000 npm start
 Input information
 -----------------
 
+### Database selection
+
+Choose between
+
+* khresmoi_docs
+* kconnect_docs
+
+### Comparator
+
+Add A comparator file. It is useful for showing results spinner information.
+
 ### Add a URL
 
 Fetch from `api-kconnect`
@@ -56,7 +67,7 @@ Fetch from `CouchDB` available in `api-kconnect`.
 
 ### Run the whole database
 
-Awaiting `map/reduce` redesign.
+Will fetch the database results and show the output for benchmark comparison.
 
 API Documentation
 -----------------
