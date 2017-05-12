@@ -8,9 +8,45 @@ const APIKCONNECT_HOST = 'apikconnect.honservices.org';
 const APIKCONNECT_PATH = '/~kconnect/cgi-bin/gold-standard-couch.cgi';
 
 router.get('/', (req, res) => {
-  res.json({
-    message: 'nothing to show.',
+  let database = req.query.database || 'khresmoi';
+  const options = {
+    hostname: APIKCONNECT_HOST,
+    path: APIKCONNECT_PATH + '?database=' + database +
+      '&group=true&reduce=true',
+    method: 'GET',
+    port: 443,
+    json: true,
+  };
+
+  let request = https.request(options, httpsRes => {
+    let data = '';
+    httpsRes.on('data', chunk => {
+      data += chunk;
+    });
   });
+
+  request.on('response', response => {
+    let data = '';
+    response.on('data', chunk => {
+      data += chunk;
+    });
+    response.on('end', () => {
+      data = JSON.parse(data);
+      res.json(data);
+    });
+  });
+
+  request.on('error', err => {
+    console.log(err);
+    return res.status(400).json({
+      type: 'error',
+      message: 'could not read data from API Kconnect.',
+      error: err,
+    });
+  });
+
+  request.end();
+
 });
 
 router.get('/:domain', (req, res) => {

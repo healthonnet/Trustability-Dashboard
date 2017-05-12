@@ -24,6 +24,11 @@
   }
   switchColors();
 
+  var conducts = {};
+  if (localStorage.conducts) {
+    conducts = JSON.parse(localStorage.conducts);
+  }
+
   /**
    * Progressbar params
    * simple code taken from progressbar.js tutorial
@@ -124,7 +129,7 @@
     }
   }
 
-  function getURLrows(urls, expected, principles) {
+  function getURLrows(urls, expected, principles, domain) {
     var result = '';
     var extra = [];
     var found = [];
@@ -162,9 +167,27 @@
         '<td class="text-right' + extra[8] + '">' + found[8] + '</td>' +
         '</tr>';
     }
+    if (conducts[domain]) {
+      result += '<tr>' +
+        '<th class="text-right">expected</th>' +
+        '<td class="text-right">' + conducts[domain][0] + '</td>' +
+        '<td class="text-right">' + conducts[domain][1] + '</td>' +
+        '<td class="text-right">' + conducts[domain][2] + '</td>' +
+        '<td class="text-right">' + conducts[domain][3] + '</td>' +
+        '<td class="text-right">' + conducts[domain][4] + '</td>' +
+        '<td class="text-right">' + conducts[domain][5] + '</td>' +
+        '<td class="text-right">' + conducts[domain][6] + '</td>' +
+        '<td class="text-right">' + conducts[domain][7] + '</td>' +
+        '<td class="text-right">' + conducts[domain][8] + '</td>' +
+        '</tr>';
+    }
     for (i = 0; i < 9; i++) {
-      total[i] = '&#10060;';
-      if (principles[i] > 0) {
+      total[i] = 'N/A';
+      if (conducts[domain] && conducts[domain][i] === 1) {
+        total[i] = '&#10060;';
+      }
+      if (((conducts[domain] && conducts[domain][i] === 1) ||
+        (!conducts[domain])) && principles[i] > 0) {
         total[i] = '&#9989';
       }
     }
@@ -201,7 +224,7 @@
       '<th class="text-right">HC8</th>' +
       '<th class="text-right">HC9</th>' +
       '</th></thead><tbody class="table-striped .table-hover">' +
-      getURLrows(object.urls, object.honconduct, object.principles) +
+      getURLrows(object.urls, object.honconduct, object.principles, domain) +
       '</tbody></table>';
   }
 
@@ -223,10 +246,11 @@
     var result = [0,0,0,0,0,0,0,0,0];
     var count = 0;
     for (var host in structure) {
-      if (structure.hasOwnProperty(host)) {
+      if (structure.hasOwnProperty(host) && conducts[host]) {
         for (var j = 0; j < 9; j++) {
-
-          result[j] += structure[host].principles[j];
+          if (conducts[host] && conducts[host][j] === 1) {
+            result[j] += structure[host].principles[j];
+          }
         }
         count++;
       }
@@ -260,6 +284,71 @@
     $('#khresmoi').removeClass('btn-primary');
     $('#' + database).addClass('btn-primary');
     $('.text-muted').html(database + '_docs database');
+  }
+
+  function convertToDomains(json) {
+    var result = {};
+    var expected = [0,0,0,0,0,0,0,0,0];
+    var count = 0;
+    for (var conduct in json) {
+      if (json.hasOwnProperty(conduct)) {
+        if (json[conduct].principles.HC1) {
+          expected[0] = 1;
+        }
+        if (json[conduct].principles.HC2 ||
+          json[conduct].principles.HC11 ||
+          json[conduct].principles.HC12) {
+          expected[1] = 1;
+        }
+        if (json[conduct].principles.HC3) {
+          expected[2] = 1;
+        }
+        if (json[conduct].principles.HC4) {
+          expected[3] = 1;
+        }
+        if (json[conduct].principles.HC5) {
+          expected[4] = 1;
+        }
+        if (json[conduct].principles.HC6 ||
+          json[conduct].principles.HC10) {
+          expected[5] = 1;
+        }
+        if (json[conduct].principles.HC7) {
+          expected[6] = 1;
+        }
+        if (json[conduct].principles.HC16 ||
+          json[conduct].principles.HC17 ||
+          json[conduct].principles.HC18) {
+          expected[7] = 1;
+        }
+        if (json[conduct].principles.HC9) {
+          expected[8] = 1;
+        }
+        for (var i = 0; i < json[conduct].domain.length; i++) {
+          count++;
+          result[json[conduct].domain[i]] = expected;
+        }
+      }
+    }
+    console.log(count + ' domains have been added.');
+    return result;
+  }
+
+  function loadBenchmark(container, json) {
+    if (json.results) {
+      structure = {};
+      for (var i = 0; i < json.results.length; i++) {
+        structure[json.results[i].key] = {
+          urls: [],
+          principles: json.results[i].value,
+        };
+      }
+      console.log(i + ' domains have been added.');
+    } else {
+      console.log('no results.');
+    }
+    printHosts(container);
+    saveStructure();
   }
 
   Loader.Load = {
@@ -310,10 +399,8 @@
       var reader = new FileReader();
       reader.onloadend = function (evt) {
         if (evt.target.readyState === FileReader.DONE) {
-          Loader.Load.load(
-            document.getElementById('details'),
-            evt.target.result
-          );
+          conducts = convertToDomains(JSON.parse(evt.target.result));
+          localStorage.conducts = JSON.stringify(conducts);
         }
       };
       reader.readAsText(file, 'UFT-8');
@@ -341,6 +428,20 @@
           '?database=' + database,
         success: function(result) {
           Loader.Load.loadJson(
+            document.getElementById('details'),
+            result
+          );
+        },
+        error: function(error) {
+          window.alert('The provided domain does not work. Sad!');
+        }});
+    },
+
+    handleAllSelect: function(evt) {
+      $.ajax({
+        url: '/api/domain/' + '?database=' + database,
+        success: function(result) {
+          loadBenchmark(
             document.getElementById('details'),
             result
           );

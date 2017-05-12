@@ -42,8 +42,20 @@
   <div class="container">
     <h1>Gold standard - Trustability<small class="text-muted">khresmoi_docs database</small></h1>
     <h2 id="input">Input</h2>
-      <button id="khresmoi" class="btn btn-default">khresmoi_docs</button>
-      <button id="kconnect" class="btn btn-default">kconnect_docs</button>
+      <div class="row">
+        <div class="col-xs-12 col-md-4">
+          <h3>Database selection</h3>
+          <button id="khresmoi" class="btn btn-default">khresmoi_docs</button>
+          <button id="kconnect" class="btn btn-default">kconnect_docs</button>
+        </div>
+        <div class="col-xs-12 col-md-4">
+          <h3>Comparator</h3>
+          <label class="btn btn-default btn-file">
+            Add HONConducts output file<input type="file" id="file-input" style="display:none;">
+          </label>
+        </div>
+      </div>
+      <hr />
       <div class="row">
         <div class="col-xs-12 col-md-4">
           <h3>By URL</h3>
@@ -57,14 +69,9 @@
         </div>
         <div class="col-xs-12 col-md-4">
           <h3>Test all Database</h3>
-          <button class="btn btn-success" id="db-input">Submit</button>
+          <button class="btn btn-success" id="all-input">Submit</button>
         </div>
       </div>
-      <!-- Automated results
-      <label class="btn btn-default btn-file">
-        Add output file<input type="file" id="file-input" style="display:none;">
-      </label>
-      -->
     <h2 id="results">Results</h2>
     <div class="row">
       <div class="col-md-2 col-md-offset-1 col-sm-4">
@@ -133,13 +140,15 @@
   <script src="js/loader.js"></script>
   <!-- endbuild -->
   <script>
-    // document.getElementById('file-input')
-    //   .addEventListener('change', Loader.Load.handleFileSelect, false);
+    document.getElementById('file-input')
+        .addEventListener('change', Loader.Load.handleFileSelect, false);
     Loader.Load.printHosts('details');
     document.getElementById('url-input')
       .addEventListener('change', Loader.Load.handleURLSelect, false);
     document.getElementById('domain-input')
       .addEventListener('change', Loader.Load.handleDomainSelect, false);
+    document.getElementById('all-input')
+      .addEventListener('click', Loader.Load.handleAllSelect, false);
     document.getElementById('remove-all')
       .addEventListener('click', Loader.Load.removeAll, false);
     document.getElementById('kconnect')
