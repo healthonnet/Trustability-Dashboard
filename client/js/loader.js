@@ -18,6 +18,12 @@
     structure = JSON.parse(localStorage.structure);
   }
 
+  var database = 'khresmoi';
+  if (localStorage.database) {
+    database = localStorage.database;
+  }
+  switchColors();
+
   /**
    * Progressbar params
    * simple code taken from progressbar.js tutorial
@@ -249,7 +255,20 @@
     }
   }
 
+  function switchColors() {
+    $('#kconnect').removeClass('btn-primary');
+    $('#khresmoi').removeClass('btn-primary');
+    $('#' + database).addClass('btn-primary');
+    $('.text-muted').html(database + '_docs database');
+  }
+
   Loader.Load = {
+    changeDatabase: function(dbName) {
+      database = dbName;
+      localStorage.database = dbName;
+      switchColors();
+    },
+
     load: function (container, json) {
       Loader.Load.loadJson(JSON.parse(json));
     },
@@ -318,7 +337,8 @@
     handleDomainSelect: function(evt) {
       var domain = document.getElementById('domain-input').value;
       $.ajax({
-        url: '/api/domain/' + encodeURIComponent(domain),
+        url: '/api/domain/' + encodeURIComponent(domain) +
+          '?database=' + database,
         success: function(result) {
           Loader.Load.loadJson(
             document.getElementById('details'),

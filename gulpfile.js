@@ -33,7 +33,7 @@ gulp.task('build-client', ['images'], () => {
 gulp.task('serve', ['build'], () => {
   server.run([DIST + '/www']);
   gulp.watch(['client/**/*.html', 'client/**/*.js'], function(event) {
-    gulp.run('build-client');
+    gulp.run('build');
     server.notify(event);
   });
   gulp.watch(['server/routes/**/*.js', 'server/www'], [server.run]);

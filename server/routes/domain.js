@@ -14,10 +14,13 @@ router.get('/', (req, res) => {
 });
 
 router.get('/:domain', (req, res) => {
-  console.log('called');
+  let database = req.query.database || 'khresmoi';
+  console.log(APIKCONNECT_PATH + '?database=' + database +
+    '&domain=' + req.params.domain);
   const options = {
     hostname: APIKCONNECT_HOST,
-    path: APIKCONNECT_PATH + '?domain=' + req.params.domain,
+    path: APIKCONNECT_PATH + '?database=' + database +
+      '&domain=' + req.params.domain,
     method: 'GET',
     port: 443,
     json: true,

@@ -40,8 +40,10 @@
     </div>
   </nav>
   <div class="container">
-    <h1>Gold standard <small class="text-muted">Trustability</small></h1>
+    <h1>Gold standard - Trustability<small class="text-muted">khresmoi_docs database</small></h1>
     <h2 id="input">Input</h2>
+      <button id="khresmoi" class="btn btn-default">khresmoi_docs</button>
+      <button id="kconnect" class="btn btn-default">kconnect_docs</button>
       <div class="row">
         <div class="col-xs-12 col-md-4">
           <h3>By URL</h3>
@@ -140,6 +142,10 @@
       .addEventListener('change', Loader.Load.handleDomainSelect, false);
     document.getElementById('remove-all')
       .addEventListener('click', Loader.Load.removeAll, false);
+    document.getElementById('kconnect')
+      .addEventListener('click', (function() {Loader.Load.changeDatabase('kconnect')}), false);
+    document.getElementById('khresmoi')
+      .addEventListener('click', (function() {Loader.Load.changeDatabase('khresmoi')}), false);
   </script>
 </body>
 </html>
