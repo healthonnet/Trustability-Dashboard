@@ -1,6 +1,5 @@
 (function ($) {
   'use strict';
-
   /**
    * Volatile structure
    * {
@@ -13,6 +12,7 @@
    *   }
    * }
    */
+  var fixOrder = [2,3,7,1,6,8,5,0,4];
   var structure = {};
   if (localStorage.structure) {
     structure = JSON.parse(localStorage.structure);
@@ -187,7 +187,7 @@
         total[i] = 'N/A';
       }
       if (((conducts[domain] && conducts[domain][i] === 1) ||
-        (!conducts[domain])) && principles[i] > 0) {
+        (!conducts[domain])) && principles[fixOrder[i]] > 0) {
         total[i] = '&#9989';
       }
     }
@@ -247,7 +247,7 @@
       if (structure.hasOwnProperty(host) && conducts[host]) {
         for (var j = 0; j < 9; j++) {
           if (conducts[host] && conducts[host][j] === 1) {
-            result[j] += structure[host].principles[j];
+            result[j] += structure[host].principles[fixOrder[j]];
             count[j]++;
           }
         }
@@ -292,36 +292,36 @@
       expected = [0,0,0,0,0,0,0,0,0];
       if (json.hasOwnProperty(conduct)) {
         if (json[conduct].principles.HC1) {
-          expected[0] = 1;
+          expected[2] = 1;
         }
         if (json[conduct].principles.HC2 ||
           json[conduct].principles.HC11 ||
           json[conduct].principles.HC12) {
-          expected[1] = 1;
-        }
-        if (json[conduct].principles.HC3) {
-          expected[2] = 1;
-        }
-        if (json[conduct].principles.HC4) {
           expected[3] = 1;
         }
+        if (json[conduct].principles.HC3) {
+          expected[7] = 1;
+        }
+        if (json[conduct].principles.HC4) {
+          expected[1] = 1;
+        }
         if (json[conduct].principles.HC5) {
-          expected[4] = 1;
+          expected[6] = 1;
         }
         if (json[conduct].principles.HC6 ||
           json[conduct].principles.HC10) {
-          expected[5] = 1;
+          expected[8] = 1;
         }
         if (json[conduct].principles.HC7) {
-          expected[6] = 1;
+          expected[5] = 1;
         }
         if (json[conduct].principles.HC16 ||
           json[conduct].principles.HC17 ||
           json[conduct].principles.HC18) {
-          expected[7] = 1;
+          expected[0] = 1;
         }
         if (json[conduct].principles.HC9) {
-          expected[8] = 1;
+          expected[4] = 1;
         }
         for (var i = 0; i < json[conduct].domain.length; i++) {
           count++;
@@ -329,7 +329,7 @@
         }
       }
     }
-    console.log(count + ' domains have been added.');
+    console.log(count + ' benchmark domains have been added.');
     return result;
   }
 
